@@ -14,6 +14,7 @@ import os
 import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# 设置系统环境目录，配置apps,extra_app为根目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, os.path.join(BASE_DIR, 'extra_app'))
@@ -43,7 +44,8 @@ INSTALLED_APPS = [
     'users',
     'operation',
     'organization',
-    'xadmin'
+    'xadmin',
+    'captcha'
 ]
 
 MIDDLEWARE = [
@@ -110,9 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
-
+# 设置后台语言
 LANGUAGE_CODE = 'zh-hans'
-
+# 设置后台时区
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
@@ -131,3 +133,8 @@ STATICFILES_DIRS = (
 
 # 设置系统用户类
 AUTH_USER_MODEL = 'users.UserProfile'
+
+# 设置BACKEND，重载用户验证auth方法
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
