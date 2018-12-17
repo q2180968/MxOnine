@@ -138,3 +138,13 @@ AUTH_USER_MODEL = 'users.UserProfile'
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomBackend',
 )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 邮箱服务器地址
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'q2180968@163.com'
+EMAIL_HOST_PASSWORD = '@890203Lw'
+EMAIL_USE_TLS = False
+EMAIL_FROM = 'q2180968@163.com'

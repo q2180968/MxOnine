@@ -3,6 +3,7 @@ import xadmin
 import xadmin.views
 
 
+# 设置主题信息
 class BaseSetting(object):
     enable_themes = True
     # use_bootswatch = True
@@ -11,9 +12,11 @@ class BaseSetting(object):
 xadmin.site.register(xadmin.views.BaseAdminView, BaseSetting)
 
 
+# 设置LOGO，尾部信息
 class GloabSetting(object):
     site_title = '幕学在线'
     site_footer = '@幕学在线'
+    # 将菜单设置为可折叠
     menu_style = 'accordion'
 
 
@@ -42,3 +45,12 @@ class BannerAdmin(object):
 
 
 xadmin.site.register(Banner, BannerAdmin)
+
+xadmin.site.unregister(UserProfile)
+
+
+class UserProfileAdmin(object):
+    pass
+
+
+xadmin.site.register(UserProfile, UserProfileAdmin)

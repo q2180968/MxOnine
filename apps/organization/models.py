@@ -12,7 +12,7 @@ class CityDict(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class CourseOrg(models.Model):
@@ -34,7 +34,7 @@ class CourseOrg(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class Teacher(models.Model):
@@ -55,4 +55,4 @@ class Teacher(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name

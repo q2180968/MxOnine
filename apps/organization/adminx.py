@@ -10,7 +10,9 @@ xadmin.site.register(CityDict, CityDictAdmin)
 
 
 class CourseOrgAdmin(object):
-    pass
+    list_display = ['name', 'address']
+    # list_filter = ['email', 'send_type', 'send_time']
+    # search_fields = ['email']
 
 
 xadmin.site.register(CourseOrg, CourseOrgAdmin)
