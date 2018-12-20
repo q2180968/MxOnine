@@ -30,7 +30,7 @@ class Course(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class Lesson(models.Model):
@@ -44,7 +44,7 @@ class Lesson(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class Video(models.Model):
@@ -59,7 +59,7 @@ class Video(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class CourseResource(models.Model):
