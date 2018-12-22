@@ -28,6 +28,7 @@ class LoginView(View):
 
     def post(self, request):
         login_form = LoginForm(request.POST)
+        url = request.session.get('red_url', '')
         if login_form.is_valid():
             username = login_form.data['username']
             password = login_form.data['password']
@@ -35,7 +36,10 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return render(request, 'index.html')
+                    if url:
+                        return redirect(url)
+                    else:
+                        return render(request, 'index.html')
                 else:
                     return render(request, 'users/login.html', {'msg': '用户未激活!'})
             else:

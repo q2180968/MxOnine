@@ -16,7 +16,7 @@
 
                         </div>
                         <div class="des">
-                            <h1 title="django 从入门到精通体验开始了">{{ course.name }}</h1>
+                            <h1 title="{{ course.name }}">{{ course.name }}</h1>
                             <span class="key">{{ course.desc }}</span>
                             <div class="prize">
                                 <span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
@@ -40,7 +40,7 @@
                             </ul>
                             <div class="btns">
                                 <div class="btn colectgroupbtn" id="jsLeftBtn">
-                                    收藏
+                                    {% if course_is_fav %}已收藏{% else %}收藏{% endif %}
                                 </div>
                                 <div class="buy btn"><a style="color: white" href="course-video.html">开始学习</a></div>
                             </div>
@@ -59,9 +59,8 @@
                         <a href="{% url 'org:detail' course.course_org.id %}">
                             <h2 class="center" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
                         </a>
-                        <div class="btn  notlogin
-					     " data-favid="14" id="jsRightBtn">
-                            已收藏
+                        <div class="btn  notlogin" data-favid="14" id="jsRightBtn">
+                            {% if org_is_fav %}已收藏{% else %}收藏{% endif %}
                         </div>
                         <div class="clear">
                             <ul>
@@ -128,4 +127,44 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+
+            function add_fav(current_elem, fav_id, fav_type) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'org:add_fav' %}",
+                    data: {'fav_id': fav_id, 'fav_type': fav_type},
+                    async: true,
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        if (data.status == 'fail') {
+                            if (data.msg == '用户未登录') {
+                                window.location.href = "{% url 'login' %}";
+                            } else {
+                                alert(data.msg)
+                            }
+
+                        } else if (data.status == 'success') {
+                            current_elem.text(data.msg)
+                        }
+                    },
+                });
+            }
+
+            $('#jsRightBtn').on('click', function () {
+                add_fav($(this), {{ course.course_org.id }}, 2);
+            });
+            $('#jsLeftBtn').on('click', function () {
+                add_fav($(this), {{ course.id }}, 1);
+            });
+
+        });
+
+    </script>
 {% endblock %}
